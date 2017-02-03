@@ -2,3 +2,7 @@
 .Rproj.user/
 .RData
 wiki_data.Rproj
+.Rproj.user
+figure_drafts/*
+R/old_scripts/*
+random_thoughts.odt
