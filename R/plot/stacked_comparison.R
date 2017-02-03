@@ -3,30 +3,12 @@ font.add('default', 'fonts/urw-gothic-l-book.ttf')
 font.add('ubuntu', 'fonts/Ubuntu-L.ttf') # for special characters only
 
 
-# These are the "Tableau 20" colors as RGB. from Conrads py script
-tableau20 = c(rgb(31, 119, 180, maxColorValue = 255), rgb(174, 199, 232, maxColorValue = 255), 
-              rgb(255, 127, 14, maxColorValue = 255), rgb(255, 187, 120, maxColorValue = 255),  
-              rgb(44, 160, 44, maxColorValue = 255), rgb(152, 223, 138, maxColorValue = 255), 
-              rgb(214, 39, 40, maxColorValue = 255), rgb(255, 152, 150, maxColorValue = 255),  
-              rgb(148, 103, 189, maxColorValue = 255), rgb(197, 176, 213, maxColorValue = 255), 
-              rgb(140, 86, 75, maxColorValue = 255), rgb(196, 156, 148, maxColorValue = 255),  
-              rgb(227, 119, 194, maxColorValue = 255), rgb(247, 182, 210, maxColorValue = 255), 
-              rgb(127, 127, 127, maxColorValue = 255), rgb(199, 199, 199, maxColorValue = 255),  
-              rgb(188, 189, 34, maxColorValue = 255), rgb(219, 219, 141, maxColorValue = 255), 
-              rgb(23, 190, 207, maxColorValue = 255), rgb(158, 218, 229, maxColorValue = 255))  
+fn        <- 'data/output/data_to_plot/aux_data_for_plots.csv'
+aux_data <- read.csv(file = fn, stringsAsFactors = F)
 
-# plot(1:20, c(1:10, 1:10), pch = 19, col = tableau20, cex = 5)
-
-
-color_index <- data.frame(Var1 = c('Showbiz', 'actor', 'musician', 'singer', 'artist', 'athlete', 'author', 
-                                   'journalist', 'military', 'resistance', 'cleric', 'scientist', 'politician', 'other'),
-                          i_col = c(4, 14, 8, 1, 20, 19, 10, 13, 18, 7, 12, 17, 15, 2),
-                          legend = c('showbiz', 'Schauspieler:in', 'Musiker:in', 'Sänger:in', 'Künstler:in', 
-                                     'Athlet:in', 'Autor:in', 'Journalist:in', 'Militär', 'Widerstandskämpfer:in', 
-                                     'Geistliche:r', 'Wissenschaftler:in', 'Politiker:in', 'andere'))
-
-wiki_main <- read.csv(file = 'data/output/main_categories.csv', stringsAsFactors = F)
-str(wiki_main)
+fn <- 'data/output/main_categories.csv'
+wiki_main <- read.csv(file = fn, stringsAsFactors = F)
+# str(wiki_main)
 
 club27 <- subset(wiki_main, age == 27)
 others <- subset(wiki_main, age != 27)
@@ -38,10 +20,8 @@ cat_all <- as.data.frame(table(others$main), responseName = 'total')
 cat_all$percent <- 100 * cat_all$total / sum(cat_all$total)
 cat_c27$percent <- 100 * cat_c27$total / sum(cat_c27$total)
 
-cat_all <- merge(cat_all, color_index, by = 'Var1', all = T)
-cat_c27 <- merge(cat_c27, color_index, by = 'Var1', all = T)
-# cat_all$col <- tableau20[1:nrow(cat_all)]
-# cat_c27$col <- tableau20[1:nrow(cat_c27)]
+cat_all <- merge(cat_all, aux_data, by.x = 'Var1', by.y = 'cat', all = T)
+cat_c27 <- merge(cat_c27, aux_data, by.x = 'Var1', by.y = 'cat', all = T)
 
 # order both data sets according percentage of in-/decrease
 cat_c27$gain <- (cat_c27$percent - cat_all$percent) / cat_all$percent
@@ -80,7 +60,7 @@ all_off <- inter
 c27_off <- inter
 
 for (i in i_centre:1) {
-  color <- tableau20[cat_all$i_col[i]]
+  color <- cat_all$color[i]
   cat_all$off[i] <- all_off
   rect(0, all_off, 2, cat_all$percent[i] + all_off, col = color, border = color, xpd = T)
   
@@ -123,7 +103,7 @@ ytext_o <- all_off-12
 threshold <- 12
 
 for (i in nrow(cat_c27):(i_centre+1)) {
-  color <- tableau20[cat_all$i_col[i]]
+  color <- cat_all$color[i]
   cat_all$off[i] <- all_off
   rect(0, all_off, 2, cat_all$percent[i] + all_off, col = color, border = color, xpd = T)
   
@@ -184,7 +164,7 @@ dev.off()
 # threshold <- 9
 # 
 # for (i in (i_centre+1):nrow(cat_c27)) {
-#   color <- tableau20[cat_all$i_col[i]]
+#   color <- cat_all$color[i]
 #   cat_all$off[i] <- -all_off
 #   rect(0, -all_off, 2, -(cat_all$percent[i] + all_off), col = color, border = color, xpd = T)
 #   
