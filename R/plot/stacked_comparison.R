@@ -18,8 +18,8 @@ cat_c27 <- as.data.frame(table(club27$main), responseName = 'total')
 cat_all <- as.data.frame(table(others$main), responseName = 'total')
 
 cat_all$percent <- 100 * cat_all$total / sum(cat_all$total)
-cat_c27$percent <- 100 * cat_c27$total / sum(cat_c27$total)
 
+cat_c27$percent <- 100 * cat_c27$total / sum(cat_c27$total)
 cat_all <- merge(cat_all, aux_data, by.x = 'Var1', by.y = 'cat', all = T)
 cat_c27 <- merge(cat_c27, aux_data, by.x = 'Var1', by.y = 'cat', all = T)
 
@@ -84,15 +84,23 @@ for (i in i_centre:1) {
   
   top <- rev(amp_t*sin(xoff+xp/lambda) + yoff_t)
   
-  zero <- 7.8
-  maxc <- 9
-  lc <- rgb(zero-cat_c27$gain[i], zero-cat_c27$gain[i], zero-cat_c27$gain[i], maxColorValue = maxc)
+  # zero <- 7.8
+  # maxc <- 8
+  # lc <- rgb(zero-cat_c27$gain[i], zero-cat_c27$gain[i], zero-cat_c27$gain[i], maxColorValue = maxc)
+  # zero <- 2.8
+  # maxc <- 2.8
+  zero <- 3
+  maxc <- 2.9
+  lc <- rgb(zero-sqrt(cat_c27$gain[i]), zero-sqrt(cat_c27$gain[i]), zero-sqrt(cat_c27$gain[i]), maxColorValue = maxc)
   polygon(c(xp, rev(xp)), c(bot, top), col = lc, border = lc, xpd = T)
   
   # for the next step
   all_off <- all_off + cat_all$percent[i] + inter
   c27_off <- c27_off + cat_c27$percent[i] + inter
 }
+
+text(9, cat_c27$percent[1] + cat_c27$off[1] + 3, labels = 'Club 27', pos = 3, cex = 1.5)
+text(1, cat_all$percent[1] + cat_all$off[1] + 3, labels = 'Gesamt', pos = 3, cex = 1.5)
 
 ######################################################################
 # Up and down 
@@ -135,7 +143,8 @@ for (i in nrow(cat_c27):(i_centre+1)) {
   
   top <- rev(amp_t*sin(xoff+xp/lambda) + yoff_t)
   
-  lc <- rgb(zero+cat_c27$gain[i], zero+cat_c27$gain[i], zero+cat_c27$gain[i], maxColorValue = maxc)
+  # lc <- rgb(zero+cat_c27$gain[i], zero+cat_c27$gain[i], zero+cat_c27$gain[i], maxColorValue = maxc)
+  lc <- rgb(zero-sqrt(abs(cat_c27$gain[i])), zero-sqrt(abs(cat_c27$gain[i])), zero-sqrt(abs(cat_c27$gain[i])), maxColorValue = maxc)
   polygon(c(xp, rev(xp)), c(bot, top), col = lc, border = lc, xpd = T)
   
   # for the next step
@@ -144,13 +153,20 @@ for (i in nrow(cat_c27):(i_centre+1)) {
 }
 
 # plot legend
-leg_lab <- seq(80, 780, by = 100)
-leg_col <- rgb(zero-leg_lab/100, zero-leg_lab/100, zero-leg_lab/100, maxColorValue = maxc)
+# leg_lab <- seq(80, 780, by = 100)
+leg_lab <- c(3, 30, 60, 90, 300, 780)
+
+# lc <- rgb(zero-sqrt(cat_c27$gain[i]), zero-sqrt(cat_c27$gain[i]), zero-sqrt(cat_c27$gain[i]), maxColorValue = maxc)
+
+leg_col <- rgb(zero-sqrt(leg_lab/100), zero-sqrt(leg_lab/100), zero-sqrt(leg_lab/100), maxColorValue = maxc)
 x1 <- 0
 for (i in 1:length(leg_lab)) {
-  rect(x1, 135, x1+0.3, 130, col = leg_col[i], border = leg_col[i])
-  x1 <- x1 + 0.5
+  rect(x1, 135, x1+0.35, 130, col = leg_col[i], border = leg_col[i])
+  text(x1+0.175, 130, labels = leg_lab[i], pos = 1, cex = 0.8)
+  x1 <- x1 + 0.65
 }
+text(x1-0.13, 130, labels = '%', pos = 1, cex = 0.8)
+text(-0.2, 141, labels = 'Mehr oder weniger als in der Gesamtmenge', pos = 4)
 
 showtext.end()
 dev.off()
