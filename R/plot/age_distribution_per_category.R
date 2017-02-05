@@ -4,21 +4,32 @@ library(showtext)
 font.add('default', 'fonts/urw-gothic-l-book.ttf')
 font.add('ubuntu', 'fonts/Ubuntu-L.ttf') # for special characters only
 
-# read required data
-fn       <- 'data/output/data_to_plot/age_distributions_combis.csv'
-age_dist <- read.csv(file = fn, stringsAsFactors = F)
-fn       <- 'data/output/data_to_plot/age_distributions_combis_5yr.csv'
-bins     <- read.csv(file = fn, stringsAsFactors = F)
+# get input arguments from makefile
+args <- commandArgs(trailingOnly = T)
+ 
+# file name for output .svg
+fn_output <- args[1]
 
-fn       <- 'data/output/data_to_plot/aux_data_for_plots.csv'
-aux_data <- read.csv(file = fn, stringsAsFactors = F)
+# load required data
+# auxiliary data, containing colors and legend labels per group
+# 'data/output/data_to_plot/aux_data_for_plots.csv'
+aux_data <- read.csv(file = args[2], stringsAsFactors = F)
+
+# data set containing age distributions including all groups per entry 
+# main categories only could also be used
+# 'data/output/data_to_plot/age_distributions_combis.csv'
+age_dist <- read.csv(file = args[3], stringsAsFactors = F)
+
+# same data set as above, clustered in 5 year bins 
+# 'data/output/data_to_plot/age_distributions_combis_5yr.csv'
+bins     <- read.csv(file = args[4], stringsAsFactors = F)
 
 # standard grey...
 sg       <- rgb(0.8,0.8,0.8)
 
 
-svg_name <- 'figure_drafts/age_dist_combi.svg'
-svg(filename = svg_name, width = 10, height = 7, pointsize = 12, onefile = T)
+# fn_output <- 'figure_drafts/age_dist_combi.svg'
+svg(filename = fn_output, width = 10, height = 7, pointsize = 12, onefile = T)
 par(mfrow = c(2, 1), oma = c(1, 0, 0.5, 0), mar = c(3, 3, 0, 1), family = 'default') 
 showtext.begin() # has to be removed if font in svg needs to changed subsequntly
 

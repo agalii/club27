@@ -2,21 +2,29 @@ library(showtext)
 font.add('default', 'fonts/urw-gothic-l-book.ttf')
 font.add('ubuntu', 'fonts/Ubuntu-L.ttf') # for special characters only
 
+# get input arguments from makefile
+args <- commandArgs(trailingOnly = T)
+
+# file name for output .svg
+fn_output <- args[1]
 
 # load required data
-fn       <- 'data/output/data_to_plot/aux_data_for_plots.csv'
-aux_data <- read.csv(file = fn, stringsAsFactors = F)
+# auxiliary data, containing colors and legend labels per group
+# 'data/output/data_to_plot/aux_data_for_plots.csv'
+aux_data <- read.csv(file = args[2], stringsAsFactors = F)
 
-fn_c27  <- 'data/output/data_to_plot/group_distribution_c27.csv'
-cat_c27 <- read.csv(file = fn_c27, stringsAsFactors = F)
+# data set containing group distributions for club 27
+# 'data/output/data_to_plot/group_distribution_c27.csv' 
+cat_c27  <- read.csv(file = args[3], stringsAsFactors = F)
 
-# choose whether to include club 27 in reference sample or not
-fn_ref  <- 'data/output/data_to_plot/group_distribution_all.csv'
-# fn_ref  <- 'data/output/data_to_plot/group_distribution_all_but_c27.csv'
-cat_all <- read.csv(file = fn_ref, stringsAsFactors = F)
+# data set containing group distributions for reference group
+# either all or all_but_c27
+# 'data/output/data_to_plot/group_distribution_all_but_c27.csv'
+# 'data/output/data_to_plot/group_distribution_all.csv'
+cat_all  <- read.csv(file = args[4], stringsAsFactors = F)
 
 
-
+ 
 # define parameters and functions needed during plotting ################
 # index to split figure in gaining and loosing groups
 i_center <- max(which(cat_c27$gain >= 0))
@@ -28,7 +36,7 @@ arrow <- data.frame(x = c(0, -0.25, -0.14, -0.4, 0, 0.4, 0.14, 0.21, 0),
 sg    <- rgb(0.8,0.8,0.8)
 
 # color scale transformation function
-cstf   <- function(data) {(3-sqrt(abs(data)))/2.9} 
+cstf  <- function(data) {(3-sqrt(abs(data)))/2.9} 
 
 # plot sinus wave polygon to link left and right rectangles
 sinus_polygon <- function(c_off, a_off, c_per, a_per, grey_value = 0.8) {
@@ -54,8 +62,8 @@ sinus_polygon <- function(c_off, a_off, c_per, a_per, grey_value = 0.8) {
 
 
 # ######################################################### plot
-svg_file <- 'figure_drafts/stacked_comparison_up_down.svg'
-svg(filename = svg_file, width = 10, height = 7, pointsize = 12, onefile = T)
+# fn_output <- 'figure_drafts/stacked_comparison_up_down.svg'
+svg(filename = fn_output, width = 10, height = 7, pointsize = 12, onefile = T)
 par(mar = c(0, 0, 0, 0), family = 'default') 
 showtext.begin() # has to be removed if font in svg needs to changed subsequntly
 
