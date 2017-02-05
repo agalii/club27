@@ -1,4 +1,17 @@
 
+ADDITIONAL_MUSIC = data/additional/music.csv
+
+data/additional/music_clean.csv: $(ADDITIONAL_MUSIC) R/data_analysis/additional_data_music_cleanup.R
+	Rscript R/data_analysis/additional_data_music_cleanup.R $@ $(ADDITIONAL_MUSIC)
+
+
+ADDITIONAL_SPORT = data/additional/sport.tsv
+
+data/additional/sport_clean.csv: $(ADDITIONAL_SPORT) R/data_analysis/additional_data_sport_cleanup.R
+	Rscript R/data_analysis/additional_data_sport_cleanup.R $@ $(ADDITIONAL_SPORT)
+
+
+
 DEFINE_CATS_ALL = \
 	data/additional/sport_clean.csv \
 	data/additional/music_clean.csv
