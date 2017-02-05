@@ -1,9 +1,25 @@
 
+DEFINE_CATS_ALL = \
+	data/additional/sport_clean.csv \
+	data/additional/music_clean.csv
+
+data/additional/attributes_all.RData: $(DEFINE_CATS_ALL) R/data_analysis/define_categories_all.R
+	Rscript R/data_analysis/define_categories_all.R $@ $(DEFINE_CATS_ALL)
+
+
+DEFINE_CATS_MAIN = \
+	data/additional/sport_clean.csv \
+	data/additional/music_clean.csv
+
+data/additional/attributes_main.RData: $(DEFINE_CATS_MAIN) R/data_analysis/define_categories_main.R
+	Rscript R/data_analysis/define_categories_main.R $@ $(DEFINE_CATS_MAIN)
+
+
+
 
 
 data/output/data_to_plot/aux_data_for_plots.csv: R/plot/define_aux_data.R
 	Rscript R/plot/define_aux_data.R $@
-
 
 
 
