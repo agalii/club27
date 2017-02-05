@@ -24,7 +24,6 @@ sport <- tolower(sport)
 sport <- gsub('\\(.+\\)', '', sport)
 sport <- gsub(', .+', '', sport)
 sport <- gsub(' $', '', sport)
-sport <- gsub('ß', 'ss', sport)
 space <- sport[grep(' ', sport)]
 sport <- sport[-grep(' ', sport)]
 
@@ -47,7 +46,8 @@ sport <- sport[-grep('handball', sport)]
 sport <- sport[-grep('billard', sport)]
 sport <- sport[-grep('rugby', sport)]
 sport <- sport[-grep('fussball', sport)]
-sport <- c(sport, 'hockey', 'tennis', 'volleyball', 'handball', 'billard', 'rugby', 'fussball')
+sport <- sport[-grep('fußball', sport)]
+sport <- c(sport, 'hockey', 'tennis', 'volleyball', 'handball', 'billard', 'rugby', 'fussball', 'fußball')
 
 ers <- sport[grep('en$', sport)]
 ers <- gsub('en$', 'er', ers)
