@@ -1,5 +1,12 @@
 
 
+FIND_MAIN_CATEGORIES = \
+	data/additional/attributes_main.RData \
+	data/output/intermediate_backups/simplified_properties_wide.csv
+
+data/output/main_categories.csv: $(FIND_MAIN_CATEGORIES) R/data_analysis/find_main_categories.R
+	Rscript R/data_analysis/find_main_categories.R $@ $(FIND_MAIN_CATEGORIES)
+
 
 
 GROUP_DIST_ALL = \
@@ -66,4 +73,4 @@ figure_drafts/age_dist_combined_groups.svg: $(PLOT_AGE_DIST_INPUT) R/plot/age_di
 
 
 .DEFAULT_GOAL := all
-all: figure_drafts/stacked_comparison_up_down.svg figure_drafts/age_dist_combined_groups.svg data/output/data_to_plot/age_distributions_main.csv data/output/data_to_plot/age_distributions_combis.csv data/output/data_to_plot/age_distributions_combis_5yr.csv data/output/data_to_plot/age_distributions_main_5yr.csv data/output/data_to_plot/group_distributions_allref.csv
+all: figure_drafts/stacked_comparison_up_down.svg figure_drafts/age_dist_combined_groups.svg data/output/data_to_plot/age_distributions_main.csv data/output/data_to_plot/age_distributions_combis.csv data/output/data_to_plot/age_distributions_combis_5yr.csv data/output/data_to_plot/age_distributions_main_5yr.csv data/output/data_to_plot/group_distributions_allref.csv data/output/main_categories.csv data/output/all_categories.csv data/additional/attributes_main.RData data/additional/attributes_main.RData data/additional/music_clean.csv data/additional/sport_clean.csv data/output/data_to_plot/aux_data_for_plots.csv
