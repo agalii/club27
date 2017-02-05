@@ -5,32 +5,10 @@
 fn <- 'data/output/intermediate_backups/simplified_properties_wide.csv'
 wiki_data <- read.csv(file = fn, stringsAsFactors = F)
 
-# sportspeople
-sport <- read.csv(file = 'data/additional/sport_clean.csv',  stringsAsFactors = F)
-sport <- unique(as.vector(sport[,1]))
-
-# musicpeople
-music  <- read.csv(file = 'data/additional/music_clean.csv',  stringsAsFactors = F)
-music  <- unique(as.vector(music[,1]))
-
-# Jurist, arzt, psychologe/psychoanalytike/psychater, Architekt, Ingenieur, Richter, Diplomat, adliger
-cat <- c('musician', 'singer', 'actor', 'athlete', 'politician', 'showbiz', 'author', 'scientist', 'cleric', 'military', 'resistance', 'journalist', 'artist')
-att <- list(c('musiker', 'komponist', 'dirigent', 'orchester', 'organist', 'schlagzeuger', 'virtuos', music), 
-            c('sänger'), 
-            c('schauspieler', 'theaterspieler'), 
-            # c('tänzer'),
-            c('sportler', 'olympia', 'läufer', sport), 
-            c('politiker', 'gouverneur', 'governeur', 'präsident', 'mdl', 'mdb', 'minister', 'bürgermeister'), 
-            c('film', 'fernseh', 'bühne', 'show', 'entertain', 'regisseur', 'kamera(mann|frau)', 'kabrett'), 
-            c('autor', 'schriftsteller', 'dichter', 'lyriker', 'essayist'), 
-            c('wissenschaftler','mathematiker', 'olog(e$|$)','forsch', 'geodät', 'kartograph', 
-              'historiker', 'ökonom', 'geograph', 'linguist', 'germanist', 'botaniker', 'physiker', 
-              'chemiker', 'astronom', 'anatom', 'medizin', 'philosoph'), 
-            c('geistliche(r$|$)', 'bischof', 'pfarrer', 'rabbi', 'pastor', 'kardinal', 'prediger', 'missionar', 'papst'), 
-            c('offizier', 'general', 'leutnant', 'mayor', 'kommandant', 'leutnant', 'admiral', 'diktator', 'marshall', 'kriegsherr', 'brigadeführer', 'soldat', 'militär'), 
-            c('widerstand', 'freiheitskämpfer', 'befreiungskrieg', 'unabhängigkeitskrieg', 'revolutionär', '^rose$', 'regimekritiker', 'aktivist', 'aufstand'), 
-            c('journalist', 'berichterstatt'), 
-            c('maler', 'künstler', 'zeichner', 'grafiker', 'graphiker', 'skulptur', 'bildhauer', 'karikatur')) # c('holocaust', '$kriegsjustiz') + 'opfer')
+# load RData, containing categories and attributes to identify groups
+load(file = 'data/additional/attributes_all.RData')
+cat <- attributes_all[[1]]
+att <- attributes_all[[1]]
 
 
 ip <- which(substr(colnames(wiki_data), 1, 8) == 'property')
@@ -68,7 +46,8 @@ for (i in 1:nrow(wiki_data)) {
   wiki_data$multiple[i] <- length(which(wiki_data[i, icat] == T))
 }
 
-write.csv(wiki_data, file = 'data/output/properties_wide.csv', row.names = F)
+write.csv(wiki_data, file = 'data/output/all_categories_wide_test.csv', row.names = F)
+write.csv(wiki_data, file = 'data/output/all_categories_wide.csv', row.names = F)
 
 
 # ###############################################################

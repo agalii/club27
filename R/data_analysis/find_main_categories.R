@@ -5,31 +5,10 @@
 fn <- 'data/output/intermediate_backups/simplified_properties_wide.csv'
 wiki_data <- read.csv(file = fn, stringsAsFactors = F)
 
-# sportspeople
-sport <- read.csv(file = 'data/additional/sport_clean.csv',  stringsAsFactors = F)
-sport <- unique(as.vector(sport[,1]))
-
-# musicpeople
-music  <- read.csv(file = 'data/additional/music_clean.csv',  stringsAsFactors = F)
-music  <- unique(as.vector(music[,1]))
-
-cat <- c('musician', 'singer', 'actor', 'athlete', 'politician', 'showbiz', 'author', 'scientist', 'cleric', 'military', 'resistance', 'journalist', 'artist')
-att <- list(c('musiker$', 'komponist$', 'dirigent$', 'organist$', 'schlagzeuger$', 'virtuos.?$', music), 
-            c('sänger$'), 
-            c('schauspieler$', 'theaterspieler$'), 
-            c('sportler$', 'läufer$', sport), 
-            c('politiker$', 'gouverneur$', 'goveneur$', 'präsident$', 'mdl$', 'mdb$', 'minister$', 'bürgermeister$'), 
-            c('moderator$', 'entertainer$', 'regisseur$', 'kamera(mann$|frau$)', 'kabrettist$'), 
-            c('autor$', 'schriftsteller$', 'dichter$', 'lyriker$', 'essayist$', 'poet$'), 
-            c('wissenschaftler$','mathematiker$', 'olog(e$|$)','forscher$', 'geodät$', 
-              'kartograph$', 'historiker$', 'ökonom$', 'geograph$', 'linguist$', 'germanist$', 
-              'botaniker$', 'physiker$', 'chemiker$', 'astronom$', 'anatom$', 'mediziner$', 'philosoph$'), 
-            c('geistliche(r$|$)', 'bischof$', 'pfarrer$', 'rabbi$', 'imam', 'pastor$', 'kardinal$', 'prediger$', 'missionar$'), 
-            c('offizier$', 'general$', 'leutnant$', 'mayor$', 'kommandant$',  
-              'admiral$', 'diktator$', 'marshall$', 'kriegsherr$', 'brigadeführer$', 'soldat$'), 
-            c('freiheitskämpfer$', 'befreiungskrieg$', 'unabhängigkeitskrieg$', 'revolutionär$', '^rose$', 'regimekritiker$', 'aktivist$', 'aufstand'), 
-            c('journalist$', 'berichterstatter$'), 
-            c('maler$', 'künstler$', 'zeichner$', 'grafiker$', 'graphiker$', 'skulpturist$', 'bildhauer$', 'karikaturist$')) 
+# load RData, containing categories and attributes to identify groups
+load(file = 'data/additional/attributes_main.RData')
+cat <- attributes_main[[1]]
+att <- attributes_main[[1]]
 
 
 # apply columnwise, loop through properties
@@ -81,10 +60,10 @@ club27 <- subset(wiki_main, age == 27)
 others <- subset(wiki_main, age != 27)
 
 dist_table <- function(data, aux) {
-  cat         <- as.data.frame(table(data), responseName = 'total')
-  cat$percent <- 100 * cat$total / sum(cat$total)
-  cat         <- merge(cat, aux, by.x = 'data', by.y = 'cat', all = T)
-  return(cat)
+  cats         <- as.data.frame(table(data), responseName = 'total')
+  cats$percent <- 100 * cats$total / sum(cats$total)
+  cats         <- merge(cats, aux, by.x = 'data', by.y = 'cats', all = T)
+  return(cats)
 }
 
 cat_c27    <- dist_table(club27$main, aux_data)

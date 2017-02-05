@@ -1,9 +1,8 @@
 fn <- 'data/output/all_categories_wide.csv'
 wiki_data <- read.csv(file = fn, stringsAsFactors = F)
 
-str(wiki_data)
-
-cat <- c('musician', 'singer', 'actor', 'athlete', 'politician', 'showbiz', 'author', 'scientist', 'cleric', 'military', 'resistance', 'journalist', 'artist')
+load(file = 'data/additional/attributes_all.RData')
+cat <- attributes_all[[1]]
 
 # get age distribution for all categories
 age_dist <- data.frame(age = 1:125)
@@ -42,9 +41,8 @@ write.csv(bins, file = 'data/output/data_to_plot/age_distributions_combis_5yr.cs
 fn <- 'data/output/main_categories.csv'
 wiki_data <- read.csv(file = fn, stringsAsFactors = F)
 
-str(wiki_data)
-
-cat         <- c('musician', 'singer', 'actor', 'athlete', 'politician', 'showbiz', 'author', 'scientist', 'cleric', 'military', 'resistance', 'journalist', 'artist')
+load(file = 'data/additional/attributes_all.RData')
+cat <- attributes_all[[1]]
 
 # get age distribution for main categories
 age_dist <- data.frame(age = 1:125)
