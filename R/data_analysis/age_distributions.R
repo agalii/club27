@@ -1,6 +1,7 @@
 fn <- 'data/output/all_categories_wide.csv'
 wiki_data <- read.csv(file = fn, stringsAsFactors = F)
 
+# load list of categories as used in find_main_cat and find_all_cat
 load(file = 'data/additional/attributes_all.RData')
 cat <- attributes_all[[1]]
 
@@ -41,6 +42,7 @@ write.csv(bins, file = 'data/output/data_to_plot/age_distributions_combis_5yr.cs
 fn <- 'data/output/main_categories.csv'
 wiki_data <- read.csv(file = fn, stringsAsFactors = F)
 
+# load list of categories as used in find_main_cat and find_all_cat
 load(file = 'data/additional/attributes_all.RData')
 cat <- attributes_all[[1]]
 
@@ -50,13 +52,13 @@ this     <- as.data.frame(table(wiki_data$age), responseName = 'all')
 age_dist <- merge(age_dist, this, by.x = 'age', by.y = 'Var1', all = T)
 
 for (c in c(cat, 'other')) {
-  age  <- subset(wiki_data, main == c, select = 'age')
-  this <- as.data.frame(table(age), responseName = c)
+  age      <- subset(wiki_data, main == c, select = 'age')
+  this     <- as.data.frame(table(age), responseName = c)
   age_dist <- merge(age_dist, this, by = 'age', all = T)
 }
 
 age_dist$age <- as.integer(age_dist$age)
-age_dist <- age_dist[order(age_dist$age),]
+age_dist     <- age_dist[order(age_dist$age),]
 
 age_dist[is.na(age_dist)] <- 0
 
@@ -64,7 +66,7 @@ write.csv(age_dist, file = 'data/output/data_to_plot/age_distributions_main.csv'
 
 
 # calculate 5 year bins for better plotting
-bins     <- data.frame(bin = seq(0, 125, by = 5))
+bins <- data.frame(bin = seq(0, 125, by = 5))
 bins[,c('all', cat, 'other')] <- NA
 
 for (i in 2:nrow(bins)) {

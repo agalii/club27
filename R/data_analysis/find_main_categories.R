@@ -62,7 +62,7 @@ others <- subset(wiki_main, age != 27)
 dist_table <- function(data, aux) {
   cats         <- as.data.frame(table(data), responseName = 'total')
   cats$percent <- 100 * cats$total / sum(cats$total)
-  cats         <- merge(cats, aux, by.x = 'data', by.y = 'cats', all = T)
+  cats         <- merge(cats, aux, by.x = 'data', by.y = 'cat', all = T)
   return(cats)
 }
 

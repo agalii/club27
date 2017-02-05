@@ -5,17 +5,19 @@ font.add('default', 'fonts/urw-gothic-l-book.ttf')
 font.add('ubuntu', 'fonts/Ubuntu-L.ttf') # for special characters only
 
 # read required data
-fn <- 'data/output/data_to_plot/age_distributions_combis.csv'
+fn       <- 'data/output/data_to_plot/age_distributions_combis.csv'
 age_dist <- read.csv(file = fn, stringsAsFactors = F)
-fn <- 'data/output/data_to_plot/age_distributions_combis_5yr.csv'
+fn       <- 'data/output/data_to_plot/age_distributions_combis_5yr.csv'
 bins     <- read.csv(file = fn, stringsAsFactors = F)
 
-fn        <- 'data/output/data_to_plot/aux_data_for_plots.csv'
+fn       <- 'data/output/data_to_plot/aux_data_for_plots.csv'
 aux_data <- read.csv(file = fn, stringsAsFactors = F)
 
+# standard grey...
+sg       <- rgb(0.8,0.8,0.8)
 
 
-svg_name <- 'figure_drafts/age_dist_combi_pillars.svg'
+svg_name <- 'figure_drafts/age_dist_combi.svg'
 svg(filename = svg_name, width = 10, height = 7, pointsize = 12, onefile = T)
 par(mfrow = c(2, 1), oma = c(1, 0, 0.5, 0), mar = c(3, 3, 0, 1), family = 'default') 
 showtext.begin() # has to be removed if font in svg needs to changed subsequntly
@@ -28,8 +30,8 @@ plot(1, 1, type = 'n', xlim = c(0, 123), ylim = c(0, 20),
 text(-3.6, 19, labels = 'Lebenserwartung verschiedener Gruppen (in % pro 5-Jahrescluster)', pos = 4, xpd = T)
 
 for (line in seq(0, 16, by = 4)) {
-  points(c(-3.6, 120), rep(line, 2), lty = 2, col = rgb(0.8,0.8,0.8), lwd = 1, type = 'l')
-  text(-3.6, line, labels = line, col = rgb(0.8,0.8,0.8), pos = 2, xpd = T)
+  points(c(-3.6, 120), rep(line, 2), lty = 2, col = sg, lwd = 1, type = 'l')
+  text(-3.6, line, labels = line, col = sg, pos = 2, xpd = T)
 }
 axis(1, at = seq(0, 120, by = 20), mgp = c(3,0.5,0), lwd.ticks = 0, line = 0.5)
 
@@ -74,8 +76,8 @@ plot(1, 1, type = 'n', xlim = c(24.5, 35), ylim = c(0, 1.5),
 text(24.3, 1.4, labels = 'Passende Überschrift missing', pos = 4, xpd = T)
 
 for (line in seq(0, 1.2, by = 0.4)) {
-  points(c(24.3, 29.5), rep(line, 2), lty = 2, col = rgb(0.8,0.8,0.8), lwd = 1, type = 'l')
-  text(24.3, line, labels = line, col = rgb(0.8,0.8,0.8), pos = 2, xpd = T)
+  points(c(24.3, 29.5), rep(line, 2), lty = 2, col = sg, lwd = 1, type = 'l')
+  text(24.3, line, labels = line, col = sg, pos = 2, xpd = T)
 }
 
 axis(1, at = c(24.5,29.5), labels = F, mgp = c(3,0.5,0), lwd.ticks = 0, line = 0.5)

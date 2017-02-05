@@ -26,6 +26,7 @@ for (rm in remove) {
 }
 
 short <- gsub('-spieler', 'spieler', short, fixed = T)
+short <- gsub('ß', 'ss', short)
 
 
 # split 'kurzbeschreibung' into single words ---> uncategorized properties

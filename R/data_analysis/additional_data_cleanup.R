@@ -7,7 +7,7 @@
 sport <- read.csv(file = 'data/additional/sport.tsv',  sep = '\t', stringsAsFactors = F)
 sport <- sport$Sportart
 
-# all lower case and remove unnecessary puntuation, spaces and explanations
+# all lower case and remove unnecessary punctuation, spaces and explanations
 # please note that all entries containing a space are removed 
 # and the relevent ones have to be added manually again afterwards
 sport <- tolower(sport)
@@ -17,14 +17,9 @@ sport <- gsub(' $', '', sport)
 space <- sport[grep(' ', sport)]
 sport <- sport[-grep(' ', sport)]
 
-# the data set contains different spellings for sz, so both versions have to be considered
-sportss <- sport[grep('ß', sport)]
-sport <- gsub('ß', 'ss', sport)
-sport <- c(sport, sportss)
-
 # The following were removed above due to spaces
-sport <- c(sport, c('badminton','eishockey','football','frisbee','fünfkampf','handball','hockey',
-                    'kegeln','rugby','schwertkunst','shaolin','ski','gymnastik','turmspringen','turnen'))
+sport <- c(sport, c('badminton','football','frisbee','fünfkampf','handball','hockey','kegeln',
+                    'rugby','schwertkunst','shaolin','ski','gymnastik','turmspringen','turnen'))
 
 dash  <- sport[grep('-', sport)]
 sport <- sport[-grep('-', sport)]
@@ -32,7 +27,7 @@ sport <- sport[-grep('-', sport)]
 sport <- sport[-which(nchar(sport) < 5)]
 sport <- c(sport, 'dame', 'go', 'golf', 'judo', 'polo', 'skat', 'ski', 'bobfahren') 
 
-sport <- sport[-which(sport %in% c('eishockey', 'rollhockey', 'tischtennis', 'beachvolleyball', 'feldhandball', 'poolbillard'))] # doubles with hockey
+sport <- sport[-which(sport %in% c('rollhockey', 'tischtennis', 'beachvolleyball', 'feldhandball', 'poolbillard'))] # doubles with hockey
 
 ers <- sport[grep('en$', sport)]
 ers <- gsub('en$', 'er', ers)
