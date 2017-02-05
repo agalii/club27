@@ -1,8 +1,20 @@
+# required libraries 
 library(stringr)
 
+
+#############################################################################
+# get input arguments from makefile
+args <- commandArgs(trailingOnly = T)
+
+# file name for output .csv
+fn_output <- args[1]
+# 'data/output/intermediate_backups/wiki_data_cleaned_up.csv'
+
 # read raw data
-input_file <- 'data/raw/dewiki-20170101-persons.tsv'
-wiki_data  <- read.delim(input_file, stringsAsFactors = F, quote = '')
+wiki_data <- read.delim(file = args[2], stringsAsFactors = F, quote = '')
+# wiki_data  <- read.delim(file = 'data/raw/dewiki-20170101-persons.tsv', stringsAsFactors = F, quote = '')
+
+
 
 #### clean up dates ####
 # remove all entries without Geburts- or Sterbedatum
@@ -37,8 +49,6 @@ char_check_cleanup <- function(data, valid_strings) {
   if (all(strings %in% valid_strings)) {
     data  <- gsub('[a-zA-Z]', '', data)
     data  <- gsub(' ', '', data)
-    # ugly work around, find regular expression for '.' -> \\.
-    data  <- gsub('.', ' ', data, fixed = T)
     return(data)
   } else {
     invalid <- strings[-which(strings %in% valid_strings)]
@@ -52,42 +62,5 @@ val_str <- c('vermutlich', 'getauft', 'begraben')
 wiki_data$geburtsdatum <- char_check_cleanup(wiki_data$geburtsdatum, val_str)
 wiki_data$sterbedatum  <- char_check_cleanup(wiki_data$sterbedatum, val_str)
 
-fn <- 'data/output/intermediate_backups/wiki_data_cleaned_up.csv'
-write.csv(wiki_data, file = fn, row.names = F)
 
-#############################################################################
-wiki_data <- read.csv(file = fn,  stringsAsFactors = F)
-
-# select entries with dates of the format d m y 
-# val_form  <- '^\\d{1,2}\\.\\d{1,2}\\.\\d{1,4}$'
-val_form  <- '^\\d{1,2}\\s\\d{1,2}\\s\\d{1,4}$'
-i_date    <- intersect(grep(val_form, wiki_data$geburtsdatum), 
-                       grep(val_form, wiki_data$sterbedatum))
-wiki_data <- wiki_data[i_date, ]
-
-# convert dates
-wiki_data$birth <- strptime(wiki_data$geburtsdatum, format = '%e %m %Y', tz = 'CET')
-wiki_data$death <- strptime(wiki_data$sterbedatum, format = '%e %m %Y', tz = 'CET')
-
-# calculate age
-age_days      <- difftime(wiki_data$death, wiki_data$birth, units = 'days')
-wiki_data$age <- floor(as.numeric(age_days) / 365)
-
-# remove entries with negative age or age above the oldest human ever 
-# (122 yr, according to data set)
-i_ex <- which(wiki_data$age < 0 | wiki_data$age > 122)
-wiki_data <- wiki_data[-i_ex, ]
-
-# check for NAs, should return empty 
-i_na <- which(is.na(wiki_data$age))
-wiki_data$birth[i_na]
-wiki_data$death[i_na]
-wiki_data[i_na, ]
-
-i_rm_col  <- which(colnames(wiki_data) %in% c('alternativnamen', 'geburtsdatum', 'sterbedatum'))
-wiki_data <- wiki_data[, -i_rm_col]
-
-fn <- 'data/output/intermediate_backups/wiki_data_age.csv'
-write.csv(wiki_data, file = fn, row.names = F)
-
-
+write.csv(wiki_data, file = fn_output, row.names = F)

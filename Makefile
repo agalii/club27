@@ -1,4 +1,20 @@
 
+
+
+CLEANUP_DATE = data/raw/dewiki-20170101-persons.tsv
+
+data/output/intermediate_backups/wiki_data_cleaned_up.csv: $(CLEANUP_DATE) R/data_analysis/date_cleanup.R
+	Rscript R/data_analysis/date_cleanup.R $@ $(CLEANUP_DATE)
+
+
+
+CALCULATE_AGE = data/output/intermediate_backups/wiki_data_cleaned_up.csv
+
+data/output/intermediate_backups/wiki_data_age.csv: $(CALCULATE_AGE) R/data_analysis/age_calculation.R
+	Rscript R/data_analysis/age_calculation.R $@ $(CALCULATE_AGE)
+
+
+
 CLEANUP_PROPERTIES = data/output/intermediate_backups/wiki_data_age.csv
 
 data/output/intermediate_backups/simplified_properties.csv: $(CLEANUP_PROPERTIES) R/data_analysis/property_cleanup.R
