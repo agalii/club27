@@ -1,5 +1,14 @@
 
 
+FIND_ALL_CATEGORIES = \
+	data/additional/attributes_all.RData \
+	data/output/intermediate_backups/simplified_properties_wide.csv
+
+data/output/all_categories.csv: $(FIND_ALL_CATEGORIES) R/data_analysis/find_all_categories.R
+	Rscript R/data_analysis/find_all_categories.R $@ $(FIND_ALL_CATEGORIES)
+
+
+
 FIND_MAIN_CATEGORIES = \
 	data/additional/attributes_main.RData \
 	data/output/intermediate_backups/simplified_properties_wide.csv

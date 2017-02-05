@@ -1,14 +1,25 @@
-
 #############################################################################
 # properties to clusters, identify all clusters per entry
 # note that the list of attributes slightly differs from the one used for main clusteridentification
-fn <- 'data/output/intermediate_backups/simplified_properties_wide.csv'
-wiki_data <- read.csv(file = fn, stringsAsFactors = F)
 
-# load RData, containing categories and attributes to identify groups
-load(file = 'data/additional/attributes_all.RData')
+# get input arguments from makefile
+args <- commandArgs(trailingOnly = T)
+
+# file name for output .csv
+fn_output <- args[1]
+# fn_output <- 'data/output/all_categories.csv'
+
+# load required data
+# load RData containing categories and attributes to identify groups
+load(file = args[2])
+# load(file = 'data/additional/attributes_all.RData')
 cat <- attributes_all[[1]]
-att <- attributes_all[[1]]
+att <- attributes_all[[2]]
+
+# data set containing verbous propreties for each entry
+wiki_data <- read.csv(file = args[3], stringsAsFactors = F)
+# wiki_data <- read.csv(file = 'data/output/intermediate_backups/simplified_properties_wide.csv', stringsAsFactors = F)
+
 
 
 ip <- which(substr(colnames(wiki_data), 1, 8) == 'property')
@@ -46,8 +57,7 @@ for (i in 1:nrow(wiki_data)) {
   wiki_data$multiple[i] <- length(which(wiki_data[i, icat] == T))
 }
 
-write.csv(wiki_data, file = 'data/output/all_categories_wide_test.csv', row.names = F)
-write.csv(wiki_data, file = 'data/output/all_categories_wide.csv', row.names = F)
+write.csv(wiki_data, file = fn_output, row.names = F)
 
 
 # ###############################################################
