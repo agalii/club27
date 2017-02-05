@@ -1,4 +1,11 @@
 
+CLEANUP_PROPERTIES = data/output/intermediate_backups/wiki_data_age.csv
+
+data/output/intermediate_backups/simplified_properties.csv: $(CLEANUP_PROPERTIES) R/data_analysis/property_cleanup.R
+	Rscript R/data_analysis/property_cleanup.R $@ $(CLEANUP_PROPERTIES)
+
+
+
 ADDITIONAL_MUSIC = data/additional/music.csv
 
 data/additional/music_clean.csv: $(ADDITIONAL_MUSIC) R/data_analysis/additional_data_music_cleanup.R
@@ -38,7 +45,7 @@ data/output/data_to_plot/aux_data_for_plots.csv: R/plot/define_aux_data.R
 
 FIND_ALL_CATEGORIES = \
 	data/additional/attributes_all.RData \
-	data/output/intermediate_backups/simplified_properties_wide.csv
+	data/output/intermediate_backups/simplified_properties.csv
 
 data/output/all_categories.csv: $(FIND_ALL_CATEGORIES) R/data_analysis/find_all_categories.R
 	Rscript R/data_analysis/find_all_categories.R $@ $(FIND_ALL_CATEGORIES)
@@ -47,7 +54,7 @@ data/output/all_categories.csv: $(FIND_ALL_CATEGORIES) R/data_analysis/find_all_
 
 FIND_MAIN_CATEGORIES = \
 	data/additional/attributes_main.RData \
-	data/output/intermediate_backups/simplified_properties_wide.csv
+	data/output/intermediate_backups/simplified_properties.csv
 
 data/output/main_categories.csv: $(FIND_MAIN_CATEGORIES) R/data_analysis/find_main_categories.R
 	Rscript R/data_analysis/find_main_categories.R $@ $(FIND_MAIN_CATEGORIES)

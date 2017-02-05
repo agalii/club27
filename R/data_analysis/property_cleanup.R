@@ -3,9 +3,21 @@
 # split 'kurzbeschreibung' into single properties
 # simplify properties by removing gender, case, etc. endings
 
-fn <- 'data/output/intermediate_backups/wiki_data_age.csv'
-wiki_data <- read.csv(file = fn,  stringsAsFactors = F)
 
+
+# get input arguments from makefile #########################################
+args <- commandArgs(trailingOnly = T)
+
+# file name for output .csv
+fn_output <- args[1]
+# fn_output <- 'data/output/intermediate_backups/simplified_properties_wide.csv'
+
+# load data
+wiki_data <- read.csv(file = args[2], stringsAsFactors = F)
+# wiki_data <- read.csv(file = 'data/output/intermediate_backups/wiki_data_age.csv', stringsAsFactors = F)
+
+
+#############################################################################
 # unify spelling and pre-remove unnecessary properties
 short <- wiki_data$kurzbeschreibung
 short <- tolower(short)
@@ -26,8 +38,7 @@ for (rm in remove) {
 }
 
 short <- gsub('-spieler', 'spieler', short, fixed = T)
-short <- gsub('ß', 'ss', short)
-
+# short <- gsub('ß', 'ss', short)
 
 # split 'kurzbeschreibung' into single words ---> uncategorized properties
 ## create empty columns to be filled
@@ -36,10 +47,10 @@ n_property <- 30
 wiki_data[, paste('property', 1:n_property, sep = '')] <- NA
 
 for (i in 1:nrow(wiki_data)) {
-  cs <- strsplit(short[i], ' ')[[1]]
+  cs  <- strsplit(short[i], ' ')[[1]]
   lcs <- length(cs)
   if (lcs > n_property) {
-    print(paste('At least', lcs, 'properties needed!'))
+    print(paste('At least', lcs, 'property columns needed!'))
     break
   }
   if (lcs > 0) {
@@ -55,11 +66,11 @@ while(all(is.na(wiki_data[,ncol(wiki_data)]))) {
   wiki_data <- wiki_data[, -ncol(wiki_data)]
 }
 
-fn <- 'data/output/intermediate_backups/raw_properties_wide.csv'
-write.csv(wiki_data, file = fn, row.names = F)
-#############################################################################
-# unify properties
-wiki_data <- read.csv(file = fn,  stringsAsFactors = F)
+# fn <- 'data/output/intermediate_backups/raw_properties_wide.csv'
+# write.csv(wiki_data, file = fn, row.names = F)
+# #############################################################################
+# # unify properties
+# wiki_data <- read.csv(file = fn,  stringsAsFactors = F)
 
 ## apply columnwise
 ip <- which(substr(colnames(wiki_data), 1, 8) == 'property')
@@ -85,9 +96,8 @@ for (p in ip) {
   
   # unify arzt/ärztin
   wiki_data[r , p] <- gsub('ärzt$', 'arzt', wiki_data[r , p])
-  # american occury in Eigennamen only
+  # american occuring in Eigennamen only
   wiki_data[grep('american', wiki_data[ , p]), p] <- NA
 }
 
-fn <- 'data/output/intermediate_backups/simplified_properties_wide.csv'
-write.csv(wiki_data, file = fn, row.names = F)
+write.csv(wiki_data, file = fn_output, row.names = F)
