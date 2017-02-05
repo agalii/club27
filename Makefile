@@ -1,5 +1,16 @@
 
 
+
+
+GROUP_DIST_ALL = \
+	data/output/data_to_plot/aux_data_for_plots.csv \
+	data/output/main_categories.csv
+
+data/output/data_to_plot/group_distributions_allref.csv: $(GROUP_DIST_ALL) R/data_analysis/group_distributions_main_to_plot.R
+	Rscript R/data_analysis/group_distributions_main_to_plot.R $@ all $(GROUP_DIST_ALL)
+
+
+
 AGE_DIST_ALL1_INPUT = \
 	data/additional/attributes_all.RData \
 	data/output/all_categories_wide.csv
@@ -38,8 +49,7 @@ data/output/data_to_plot/age_distributions_main_5yr.csv: $(AGE_DIST_MAIN5_INPUT)
 
 PLOT_STACKED_INPUT = \
 	data/output/data_to_plot/aux_data_for_plots.csv \
-	data/output/data_to_plot/group_distribution_c27.csv \
-	data/output/data_to_plot/group_distribution_all.csv
+	data/output/data_to_plot/group_distributions_allref.csv 
 
 figure_drafts/stacked_comparison_up_down.svg: $(PLOT_STACKED_INPUT) R/plot/stacked_comparison.R
 	Rscript R/plot/stacked_comparison.R $@ $(PLOT_STACKED_INPUT)
@@ -56,4 +66,4 @@ figure_drafts/age_dist_combined_groups.svg: $(PLOT_AGE_DIST_INPUT) R/plot/age_di
 
 
 .DEFAULT_GOAL := all
-all: figure_drafts/stacked_comparison_up_down.svg figure_drafts/age_dist_combined_groups.svg data/output/data_to_plot/age_distributions_main.csv data/output/data_to_plot/age_distributions_combis.csv data/output/data_to_plot/age_distributions_combis_5yr.csv data/output/data_to_plot/age_distributions_main_5yr.csv
+all: figure_drafts/stacked_comparison_up_down.svg figure_drafts/age_dist_combined_groups.svg data/output/data_to_plot/age_distributions_main.csv data/output/data_to_plot/age_distributions_combis.csv data/output/data_to_plot/age_distributions_combis_5yr.csv data/output/data_to_plot/age_distributions_main_5yr.csv data/output/data_to_plot/group_distributions_allref.csv

@@ -10,24 +10,26 @@ fn_output <- args[1]
 
 # load required data
 # auxiliary data, containing colors and legend labels per group
-# 'data/output/data_to_plot/aux_data_for_plots.csv'
+# aux_data <- read.csv(file = 'data/output/data_to_plot/aux_data_for_plots.csv', stringsAsFactors = F)
 aux_data <- read.csv(file = args[2], stringsAsFactors = F)
 
 # data set containing group distributions for club 27
+# cats  <- read.csv(file = 'data/output/data_to_plot/group_distributions_allref.csv', stringsAsFactors = F)
+cats  <- read.csv(file = args[3], stringsAsFactors = F)
 # 'data/output/data_to_plot/group_distribution_c27.csv' 
-cat_c27  <- read.csv(file = args[3], stringsAsFactors = F)
+# old cat_c27  <- read.csv(file = 'data/output/data_to_plot/group_distribution_c27.csv' , stringsAsFactors = F)
 
 # data set containing group distributions for reference group
 # either all or all_but_c27
 # 'data/output/data_to_plot/group_distribution_all_but_c27.csv'
 # 'data/output/data_to_plot/group_distribution_all.csv'
-cat_all  <- read.csv(file = args[4], stringsAsFactors = F)
+# old cat_all  <- read.csv(file = args[4], stringsAsFactors = F)
 
 
  
 # define parameters and functions needed during plotting ################
 # index to split figure in gaining and loosing groups
-i_center <- max(which(cat_c27$gain >= 0))
+i_center <- max(which(cats$gain >= 0))
 
 # handmade arrow...
 arrow <- data.frame(x = c(0, -0.25, -0.14, -0.4, 0, 0.4, 0.14, 0.21, 0), 
@@ -67,8 +69,8 @@ svg(filename = fn_output, width = 10, height = 7, pointsize = 12, onefile = T)
 par(mar = c(0, 0, 0, 0), family = 'default') 
 showtext.begin() # has to be removed if font in svg needs to changed subsequntly
 
-cat_all$off <- NA
-cat_c27$off <- NA
+cats$off_all <- NA
+cats$off_c27 <- NA
 
 plot(1, 1, type = 'n', xlim = c(-1.5, 13.5), ylim = c(-95, 145), 
      xlab = '', ylab = '', frame.plot = F, axes = F)
@@ -89,33 +91,33 @@ c27_off <- inter
 ######################################################################
 # plot all groups with INcreased percentage in club 27
 for (i in i_center:1) {
-  color <- cat_all$color[i]
-  cat_all$off[i] <- all_off
-  rect(0, all_off, 2, cat_all$percent[i] + all_off, col = color, border = color, xpd = T)
+  color <- cats$color[i]
+  cats$off_all[i] <- all_off
+  rect(0, all_off, 2, cats$per_ref[i] + all_off, col = color, border = color, xpd = T)
   
-  cat_c27$off[i] <- c27_off
-  rect(8, c27_off, 10, cat_c27$percent[i] + c27_off, col = color, border = color, xpd = T)
+  cats$off_c27[i] <- c27_off
+  rect(8, c27_off, 10, cats$per_c27[i] + c27_off, col = color, border = color, xpd = T)
   
   # print label next to rectangle
-  ytext <- c27_off + cat_c27$percent[i] / 2
-  text(10.3, ytext, labels =  cat_c27$legend[i], pos = 4)
+  ytext <- c27_off + cats$per_c27[i] / 2
+  text(10.3, ytext, labels =  cats$legend[i], pos = 4)
   points(c(10, 10.35), c(ytext, ytext), type = 'l', col = color)
   
   # plot sinus wave polygon link
-  sinus_polygon(c27_off, all_off, cat_c27$percent[i], cat_all$percent[i], cstf(cat_c27$gain[i]))
+  sinus_polygon(c27_off, all_off, cats$per_c27[i], cats$per_ref[i], cstf(cats$gain[i]))
   
   # for the next step
-  all_off <- all_off + cat_all$percent[i] + inter
-  c27_off <- c27_off + cat_c27$percent[i] + inter
+  all_off <- all_off + cats$per_ref[i] + inter
+  c27_off <- c27_off + cats$per_c27[i] + inter
 }
 
-text(9, cat_c27$percent[1] + cat_c27$off[1] + 3, labels = 'Club 27', pos = 3, cex = 1.5)
-text(1, cat_all$percent[1] + cat_all$off[1] + 3, labels = 'Gesamt', pos = 3, cex = 1.5)
+text(9, cats$per_c27[1] + cats$off_c27[1] + 3, labels = 'Club 27', pos = 3, cex = 1.5)
+text(1, cats$per_ref[1] + cats$off_all[1] + 3, labels = 'Gesamt', pos = 3, cex = 1.5)
 
 ######################################################################
 # plot all groups with DEcreased percentage in club 27
 # start at the bottom --> bottom offset needs to be calculated first
-all_off <- -sum(inter + cat_all$percent[(i_center+1):nrow(cat_all)])
+all_off <- -sum(inter + cats$per_ref[(i_center+1):nrow(cats)])
 c27_off <- all_off
 
 # compensate for too narrow spaces to properly print labels
@@ -123,32 +125,32 @@ c27_off <- all_off
 ytext_o <- all_off-12
 threshold <- 12
 
-for (i in nrow(cat_c27):(i_center+1)) {
-  color <- cat_all$color[i]
-  cat_all$off[i] <- all_off
-  rect(0, all_off, 2, cat_all$percent[i] + all_off, col = color, border = color, xpd = T)
+for (i in nrow(cats):(i_center+1)) {
+  color <- cats$color[i]
+  cats$off_all[i] <- all_off
+  rect(0, all_off, 2, cats$per_ref[i] + all_off, col = color, border = color, xpd = T)
   
-  cat_c27$off[i] <- c27_off
-  rect(8, c27_off, 10, cat_c27$percent[i] + c27_off, col = color, border = color, xpd = T)
+  cats$off_c27[i] <- c27_off
+  rect(8, c27_off, 10, cats$per_c27[i] + c27_off, col = color, border = color, xpd = T)
   
   # plot labels, either in center of rectangle or one threshold above last one
-  ytext <- c27_off + cat_c27$percent[i] / 2
+  ytext <- c27_off + cats$per_c27[i] / 2
   if ((ytext - ytext_o) > threshold) {
-    text(10.3, ytext, labels =  cat_c27$legend[i], pos = 4)
+    text(10.3, ytext, labels =  cats$legend[i], pos = 4)
     points(c(10, 10.35), c(ytext, ytext), type = 'l', col = color)
     ytext_o <- ytext
   } else {
     ytext_o <- ytext_o + threshold
-    text(10.3, ytext_o, labels =  cat_c27$legend[i], pos = 4)
-    points(c(10, 10.35), c(cat_c27$percent[i] + c27_off, ytext_o), type = 'l', col = color) #rgb(0.3,0.3,0.3)
+    text(10.3, ytext_o, labels =  cats$legend[i], pos = 4)
+    points(c(10, 10.35), c(cats$per_c27[i] + c27_off, ytext_o), type = 'l', col = color) #rgb(0.3,0.3,0.3)
   }
   
   # plot sinu wave polygon link between rectangles
-  sinus_polygon(c27_off, all_off, cat_c27$percent[i], cat_all$percent[i], cstf(cat_c27$gain[i]))
+  sinus_polygon(c27_off, all_off, cats$per_c27[i], cats$per_ref[i], cstf(cats$gain[i]))
   
   # for the next step
-  all_off <- all_off + cat_all$percent[i] + inter
-  c27_off <- c27_off + cat_c27$percent[i] + inter
+  all_off <- all_off + cats$per_ref[i] + inter
+  c27_off <- c27_off + cats$per_c27[i] + inter
 }
 
 # plot legend for grey scale manually #####################################
@@ -184,23 +186,23 @@ dev.off()
 # ytext_o <- -2
 # threshold <- 9
 # 
-# for (i in (i_center+1):nrow(cat_c27)) {
-#   color <- cat_all$color[i]
-#   cat_all$off[i] <- -all_off
-#   rect(0, -all_off, 2, -(cat_all$percent[i] + all_off), col = color, border = color, xpd = T)
+# for (i in (i_center+1):nrow(cats)) {
+#   color <- cats$color[i]
+#   cats$off_all[i] <- -all_off
+#   rect(0, -all_off, 2, -(cats$per_ref[i] + all_off), col = color, border = color, xpd = T)
 #   
-#   cat_c27$off[i] <- -c27_off
-#   rect(8, -c27_off, 10, -(cat_c27$percent[i] + c27_off), col = color, border = color, xpd = T)
+#   cats$off_c27[i] <- -c27_off
+#   rect(8, -c27_off, 10, -(cats$per_c27[i] + c27_off), col = color, border = color, xpd = T)
 #   
 #   # plot label
-#   ytext <- c27_off + cat_c27$percent[i] / 2
+#   ytext <- c27_off + cats$per_c27[i] / 2
 #   if ((ytext - ytext_o) > threshold) {
-#     text(10.2, -ytext, labels =  cat_c27$legend[i], pos = 4)
+#     text(10.2, -ytext, labels =  cats$legend[i], pos = 4)
 #     ytext_o <- ytext
 #   } else {
 #     ytext_o <- ytext_o + threshold
-#     text(10.2, -ytext_o, labels =  cat_c27$legend[i], pos = 4)
-#     points(c(10, 10.35), c(-(cat_c27$percent[i] + c27_off), -ytext_o), type = 'l', col = color) #rgb(0.3,0.3,0.3)
+#     text(10.2, -ytext_o, labels =  cats$legend[i], pos = 4)
+#     points(c(10, 10.35), c(-(cats$per_c27[i] + c27_off), -ytext_o), type = 'l', col = color) #rgb(0.3,0.3,0.3)
 #   }
 #   
 #   # plot sinu wave polygon link
@@ -211,17 +213,17 @@ dev.off()
 #   
 #   bot <- amp_b*sin(xoff+xp/lambda)+yoff_b
 #   
-#   amp_t  <- (cat_c27$percent[i] + c27_off - (cat_all$percent[i] + all_off)) / 2
-#   yoff_t <- cat_all$percent[i] + all_off + amp_t
+#   amp_t  <- (cats$per_c27[i] + c27_off - (cats$per_ref[i] + all_off)) / 2
+#   yoff_t <- cats$per_ref[i] + all_off + amp_t
 #   
 #   top <- rev(amp_t*sin(xoff+xp/lambda) + yoff_t)
 #   
-#   lc <- rgb(zero+cat_c27$gain[i], zero+cat_c27$gain[i], zero+cat_c27$gain[i], maxColorValue = maxc)
+#   lc <- rgb(zero+cats$gain[i], zero+cats$gain[i], zero+cats$gain[i], maxColorValue = maxc)
 #   polygon(c(xp, rev(xp)), c(-bot, -top), col = lc, border = lc, xpd = T)
 #   
 #   # for the next step
-#   all_off <- all_off + cat_all$percent[i] + 5
-#   c27_off <- c27_off + cat_c27$percent[i] + 5
+#   all_off <- all_off + cats$per_ref[i] + 5
+#   c27_off <- c27_off + cats$per_c27[i] + 5
 # }
 # 
 # showtext.end()
