@@ -1,7 +1,13 @@
+
+# get input arguments from makefile
+args <- commandArgs(trailingOnly = T)
+
+# file name for output .csv
+fn_output <- args[1]
+# fn_output <- 'data/output/data_to_plot/aux_data_for_plots.csv'
+
 ############################################################
 # define color ramp and legend names for all groups
-# cmin <- c(23, 190, 207)  # dark turquois 
-# clow <- c(158, 218, 229) # light turquois
 cmin <- c(188, 189, 34)  # dark green
 clow <- c(219, 219, 141) # light green
 chig <- c(174, 199, 232) # light blue
@@ -27,9 +33,8 @@ aux_data <- data.frame(cat    = c('resistance', 'athlete', 'singer', 'other', 'm
                                   'musician', 'artist', 'journalist', 'cleric', 'showbiz', 'scientist', 'politician'),
                        legend = c('Widerstandskämpfer:in', 'Athlet:in', 'Sänger:in', 'andere', 'Militär', 'Autor:in', 'Schauspieler:in', 
                                   'Musiker:in', 'Künstler:in', 'Journalist:in', 'Geistliche:r', 'Showbiz', 'Wissenschaftler:in', 'Politiker:in'), 
-                       # color  = c(ColorMax, rev(c(ColorHigh, ColorMiHi[-1], ColorMiLo[-1], ColorLow[-1]))),
                        color  = c(ColorMax, ColorMHi, ColorMLo[-1], ColorLow[-1]),
                        stringsAsFactors = F)
 
 
-write.csv(aux_data, file = 'data/output/data_to_plot/aux_data_for_plots.csv', row.names = F)
+write.csv(aux_data, file = fn_output, row.names = F)

@@ -1,5 +1,12 @@
 
 
+
+data/output/data_to_plot/aux_data_for_plots.csv: R/plot/define_aux_data.R
+	Rscript R/plot/define_aux_data.R $@
+
+
+
+
 FIND_ALL_CATEGORIES = \
 	data/additional/attributes_all.RData \
 	data/output/intermediate_backups/simplified_properties_wide.csv
