@@ -30,7 +30,7 @@ sg       <- rgb(0.8,0.8,0.8)
 
 # fn_output <- 'figure_drafts/age_dist_combi.svg'
 svg(filename = fn_output, width = 10, height = 7, pointsize = 12, onefile = T)
-par(mfrow = c(2, 1), oma = c(1, 0, 0.5, 0), mar = c(3, 3, 0, 1), family = 'default') 
+par(mfrow = c(2, 1), oma = c(1, 0, 0.5, 0), mar = c(3, 2.5, 0, 1.5), family = 'default') 
 showtext.begin() # has to be removed if font in svg needs to changed subsequntly
 
 ######################################################### plot I
@@ -38,13 +38,14 @@ showtext.begin() # has to be removed if font in svg needs to changed subsequntly
 plot(1, 1, type = 'n', xlim = c(0, 123), ylim = c(0, 20), 
      xlab = '', ylab = '', frame.plot = F, axes = F)
 
-text(-3.6, 19, labels = 'Lebenserwartung verschiedener Gruppen (in % pro 5-Jahrescluster)', pos = 4, xpd = T)
+text(-3.6, 19, labels = 'Prozentuale Lebenserwartung verschiedener Gruppen (in % pro 5-Jahrescluster)', pos = 4, xpd = T)
 
 for (line in seq(0, 16, by = 4)) {
   points(c(-3.6, 120), rep(line, 2), lty = 2, col = sg, lwd = 1, type = 'l')
   text(-3.6, line, labels = line, col = sg, pos = 2, xpd = T)
 }
 axis(1, at = seq(0, 120, by = 20), mgp = c(3,0.5,0), lwd.ticks = 0, line = 0.5)
+text(123.5, -5.1, labels = 'Sterbealter in Jahren', pos = 2, xpd = T, cex = 0.8)
 
 rect(25, -0.2, 29, 16.2, col = rgb(0.9,0.9,0.9), border = NA)
 
@@ -84,7 +85,7 @@ i_rel    <- c(i_rel, nrow(aux_data))
 plot(1, 1, type = 'n', xlim = c(24.5, 35), ylim = c(0, 1.5), 
      xlab = '', ylab = '', frame.plot = F, axes = F)
 
-text(24.3, 1.4, labels = 'Passende Überschrift missing', pos = 4, xpd = T)
+text(24.3, 1.4, labels = 'Sterbewahrscheinlichkeit (in % pro Lebensalter)', pos = 4, xpd = T)
 
 for (line in seq(0, 1.2, by = 0.4)) {
   points(c(24.3, 29.5), rep(line, 2), lty = 2, col = sg, lwd = 1, type = 'l')
@@ -93,6 +94,8 @@ for (line in seq(0, 1.2, by = 0.4)) {
 
 axis(1, at = c(24.5,29.5), labels = F, mgp = c(3,0.5,0), lwd.ticks = 0, line = 0.5)
 axis(1, at = 25:29, tick = F, mgp = c(3,0.5,0), line = 0.5)
+text(24.39, -0.383, labels = 'Sterbealter in Jahren', pos = 4, xpd = T, cex = 0.8)
+
 
 # add histogram manually
 x_int <- 0.15
@@ -106,7 +109,7 @@ for (i in i_rel) {
            col = aux_data$color[i], lwd = 8, type = 'l', xpd = T)
     # write percentage of club27
     if (age_dist$age[a] == 27) {
-      text(age_dist$age[a]+x_off-0.167, percent+0.07, labels = paste(round(percent, digit = 1), '%'), 
+      text(age_dist$age[a]+x_off-0.166, percent+0.08, labels = paste(round(percent, digit = 1), '%'), 
            col = aux_data$color[i], pos = 4, cex = 0.8) 
     }
   }
@@ -114,21 +117,23 @@ for (i in i_rel) {
 }
 
 # add legends for both plots
-text(30, 1.25, labels = 'Gruppen mit überproporzionalem Anteil am Club 27', pos = 4, xpd = T)
-legend(30, 1.2, legend = rep('', 3), 
+text(30, 1.3, labels = 'Gruppen mit hoher oder normaler Lebenserwartung', pos = 4, xpd = T)
+legend(30, 1.25, legend = aux_data$legend[4:8],
+       col = aux_data$color[4:8],
+       seg.len = 0.8, lwd = 2, bty = 'n', xpd = T)
+legend(32.5, 1.25, legend = aux_data$legend[9:14],
+       col = aux_data$color[9:14], 
+       seg.len = 0.8, lwd = 2, bty = 'n', xpd = T)
+
+text(30, 0.25, labels = 'Gruppen mit überproporzionalem Anteil am Club 27', pos = 4, xpd = T)
+legend(30, 0.2, legend = rep('', 3), 
        col = aux_data$color[i_rel[-4]],
        seg.len = 0.8, lwd = 2, bty = 'n', xpd = T)
-legend(30.5, 1.2, legend = c(aux_data$legend[i_rel[-4]], 'Zusammenfassung anderer Gruppen'),
+legend(30.5, 0.2, legend = c(aux_data$legend[i_rel[-4]], 'Zusammenfassung anderer Gruppen'),
        col = aux_data$color[i_rel], 
        seg.len = 0.1, lwd = 8, bty = 'n', xpd = T)
 
-text(30, 0.38, labels = 'Andere Gruppen', pos = 4, xpd = T)
-legend(30, 0.47, legend = c(NA, aux_data$legend[4:8]),
-       col = c(NA, aux_data$color[4:8]),
-       seg.len = 0.8, lwd = 2, bty = 'n', xpd = T)
-legend(32.5, 0.47, legend = aux_data$legend[9:14],
-       col = aux_data$color[9:14], 
-       seg.len = 0.8, lwd = 2, bty = 'n', xpd = T)
+
 
 showtext.end()
 dev.off()
