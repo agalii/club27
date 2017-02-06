@@ -29,7 +29,7 @@ Es gibt also Unterschiede zwischen den unterschiedlichen Gruppen an Prominenten,
 
 Die klassische Kurve der Altersverteilung steigt anfangs gemächlich an, wird ab 40-50 Jahren immer steiler, findet ihr Maximum in der Altersspanne zwischen 70 und 80 Jahren und fällt danach steil wieder ab. 
 
-Die grünen Linien zeigen einen verhältnismäßig geringen Anteil im Altersbereich unter 60 Jahren und eine Überhöhung am Maximum. Diese Linien stehen für Politiker:innen, Wissenschaftler:innen, Geistliche und Menschen aus dem Showbusiness (Regisseure, Moderatoren, Kabarettisten, etc.), welche demnach eine überdurchschnittliche Lebenserwartung haben.  
+Die grünen Linien zeigen einen verhältnismäßig geringen Anteil im Altersbereich unter 60 Jahren und eine Überhöhung am Maximum. Diese Linien stehen für Politiker:innen, Wissenschaftler:innen, Geistliche und Menschen aus dem Showbusiness (Regisseure, Moderatoren, Kabarettisten, etc.), welche demnach eine überdurchschnittliche Lebenserwartung haben.
 
 Ein gegenteiliges Bild zeichnen die blauen Linien der Athlet:innen, Sänger:innen und 'anderer'. Diese Gruppen sind einem überdurchschnittlich hohem Risiko ausgesetzt, im Alter zwischen 20 und 40 Jahren zu sterben. Auffällig ist hier der leichte 'Knick' der dunkelblauen Athlet:innenlinie zwischen 25 und 30 Jahren -- ein möglicher Hinweis auf den Club 27?
 
@@ -117,6 +117,7 @@ Die verwendeten libraries sind:
 * showtext
 * sysfonts
 * stringr
+
 
 
 
