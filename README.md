@@ -80,6 +80,7 @@ Die verwendeten libraries sind:
 
 * showtext
 * sysfonts
+
 #### Laufzeit
 Die Eigenschaften aller Personen auf Übereinstimmung mit allen Attributen der verschiedenen Gruppen zu prüfen dauert.
 
