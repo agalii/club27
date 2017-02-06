@@ -13,6 +13,10 @@ Die Idee des Club27 ist ein moderner Mythos, welcher in der Tatsache begründet 
 
 ### Zusammensetzung des Club27
 
+
+![Zusammensetzung des Club 27](https://agalii.github.io/club27/figures/stacked_comparison_up_down.svg)
+
+
 Teilt man alle Prominenten nach ihrem Beruf oder Betätigungsfeld ein, kann man vergleichen, ob sich die Gruppe derer die mit 27 Jahren starben von der Gesamtheit aller Prominenten in der Zusammensetzung unterscheidet. 
 
 Musiker:innen und Schauspieler:innen schneiden dabei neutral ab, sie sind also im Vergleich zur Gesamtheit aller Prominenten keinem höheren Risiko ausgesetzt mit 27 zu sterben. Politiker:innen und Wissenschaftler:innen dagegen, sind im Club 27 vergleichsweise gering vertreten.
@@ -22,6 +26,10 @@ Auffallend stark vertreten sind Sänger:innen und Athlet:innen, und allen voran 
 Es gibt also Unterschiede zwischen den unterschiedlichen Gruppen an Prominenten, und Sänger rangieren immerhin auf Platz 3. Bleibt die Frage ob es sich speziell um das mystische 27. Lebensjahr dreht, oder ob die Gründe banaler sind. 
 
 ### Mythos und statistische Lebenserwartung
+
+
+![Zusammensetzung des Club 27](https://agalii.github.io/club27/figures/age_dist_combined_groups.svg)
+
 
 Die klassische Kurve der Altersverteilung steigt anfangs gemächlich an, wird ab 40-50 Jahren immer steiler, findet ihr Maximum in der Altersspanne zwischen 70 und 80 Jahren (Tendenz steigend) und fällt danach steil wieder ab. 
 
