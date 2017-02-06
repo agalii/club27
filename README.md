@@ -1,9 +1,9 @@
 # Janis, Jimi, Kurt und Amy. 
 Gibt es den Club27?
 
-Wenn Ja, wer ist dabei, welche Persönlichkeiten sind darin vertreten, welche nicht.... 
+Wenn Ja, wer ist dabei, welche Persönlichkeiten sind darin vertreten, welche nicht ... 
 
-## Story...
+## Story ...
 
 Die Idee des Club27 ist ein moderner Mythos, welcher in der Tatsache begründet ist, dass einige berühmte Musiker im Alter von 27 Jahren ums Leben kamen. Berühmte und tragische Vertreter des Clubs sind unter anderen Kurt Cobain, Jim Morrison, Jimi Hendrix, Janis Joplin und Amy Whinehouse. 
 
@@ -35,13 +35,13 @@ Die klassische Kurve der Altersverteilung steigt anfangs gemächlich an, wird ab
 
 Die grünen Linien zeigen einen verhältnismäßig geringen Anteil im Altersbereich unter 60 Jahren und eine Überhöhung am Maximum. Diese Linien stehen für Politiker:innen, Wissenschaftler:innen, Geistliche und Menschen aus dem Showbusiness (Regisseure, Moderatoren, Kabarettisten, etc.), welche demnach eine überdurchschnittliche Lebenserwartung haben.  
 
-Ein gegenteiliges Bild zeichnen die blauen Linien der Athlet:innen, Sänger:innen und 'anderer'. Diese Gruppen sind einem überdurchschnittlich hohem Risiko Ausgesetzt im Alter zwischen 20 und 40 Jahren zu sterben. Auffällig ist hier der leichte 'Knick' der dunkelblauen Athlet:innenlinie zwischen 25 und 30 Jahren -- ein möglicher hinweis auf den Club 27?
+Ein gegenteiliges Bild zeichnen die blauen Linien der Athlet:innen, Sänger:innen und 'anderer'. Diese Gruppen sind einem überdurchschnittlich hohem Risiko ausgesetzt, im Alter zwischen 20 und 40 Jahren zu sterben. Auffällig ist hier der leichte 'Knick' der dunkelblauen Athlet:innenlinie zwischen 25 und 30 Jahren -- ein möglicher hinweis auf den Club 27?
 
-Am drastischten ist der Verlauf der rote Linie der Widerstandskämpfer:innen. Diese Menschen sind einem um ein Vielfaches erhöhtem Risiko ausgesetzt, im Alter zwischen 20 und 50 Jahren zu sterben. Die Kurve ähnelt eher einer Schlange die einen Elefanten verschluckt hat und spiegelt wohl viele dramatische Schicksale wieder. 
+Am drastischsten ist der Verlauf der rote Linie der Widerstandskämpfer:innen. Diese Menschen sind einem um ein Vielfaches erhöhtem Risiko ausgesetzt, im Alter zwischen 20 und 50 Jahren zu sterben. Die Kurve ähnelt eher einer Schlange die einen Elefanten verschluckt hat und spiegelt wohl viele dramatische Schicksale wieder. 
 
 Die Personengruppen, die einen überproportionalen Anteil am Club 27 darstellen, sind also generell einem höheren Risiko ausgesetzt in jungen Jahren zu sterben. Ein näherer Blick auf die Altersverteilung in dem Bereich 25 bis 30 Jahre zeigt, dass es hier keinen auffälligen Ausschlag bei 27 Jahren gibt. 
 
-Verschiedene Gruppen haben aus verschiedenen Gründen unterschiedliche Lebenserwartungen. Die körperliche Belastung von Hochleistungssportler:innen, das wilde Leben der Sänger:innen oder die tragischen Schicksale von Menschen im politischen Widerstand -- darüber, was letztlich zu einem höheren Risiko von Todesfällen in jungen Jahren führt, kann spekuliert werden. Ebenso darüber, ob es vielleicht nur die besten ihres Metiers in den tragischen Club 27 schaffen... 
+Verschiedene Gruppen haben aus verschiedenen Gründen unterschiedliche Lebenserwartungen. Die körperliche Belastung von Hochleistungssportler:innen, das wilde Leben der Sänger:innen oder die tragischen Schicksale von Menschen im politischen Widerstand -- darüber, was letztlich zu einem höheren Risiko von Todesfällen in jungen Jahren führt, kann spekuliert werden. Ebenso darüber, ob es vielleicht nur die besten ihres Metiers in den tragischen Club 27 schaffen ... 
 
 ## Auswertung
 ### Anmerkung zur Aussagekraft der Auswertung: 
